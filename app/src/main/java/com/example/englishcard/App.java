@@ -7,7 +7,7 @@ import com.example.englishcard.network.RetrofitClient;
 
 public class App extends Application {
     public static RetrofitClient retrofitClient;
-    PixabyApi api;
+    public  static PixabyApi api;
 
     @Override
     public void onCreate() {

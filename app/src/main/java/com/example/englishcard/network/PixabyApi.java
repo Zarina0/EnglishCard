@@ -7,8 +7,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface PixabyApi {
-    @GET("/api")
-    Call<PixabayResponse> getImage(@Query("key")String key,@Query("q")String keyWord );
+    @GET("/api?key=25686965-0239caa31958b6bb6157f5e9b")
+    Call<PixabayResponse> getImage(@Query("q")String keyWord );
 
 
 

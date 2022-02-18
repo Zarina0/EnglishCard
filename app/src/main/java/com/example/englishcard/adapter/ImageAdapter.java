@@ -11,10 +11,11 @@ import com.example.englishcard.databinding.ItemListHolderBinding;
 import com.example.englishcard.network.model.Hit;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder> {
-    List<Hit> list = new ArrayList<>();
+
+    ArrayList<Hit> list = new ArrayList<>();
+
     @NonNull
     @Override
     public ImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,8 +33,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         return list.size();
     }
 
-    public void setData(List<Hit> list) {
+    public void setData(ArrayList<Hit> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public class ImageHolder extends RecyclerView.ViewHolder {

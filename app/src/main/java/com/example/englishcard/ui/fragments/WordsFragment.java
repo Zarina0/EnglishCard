@@ -1,61 +1,87 @@
 package com.example.englishcard.ui.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.englishcard.App;
 import com.example.englishcard.adapter.ImageAdapter;
 import com.example.englishcard.base.BaseFrafment;
 import com.example.englishcard.databinding.FragmentWordsBinding;
-import com.example.englishcard.network.model.PixabayResponse;
+import com.example.englishcard.network.model.Hit;
+import com.example.englishcard.viewmodel.PixaBayViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
+import java.util.ArrayList;
 
 
 public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
-    private static final String TAG = "WordsFragment";
     private ImageAdapter imageAdapter;
-
+    PixaBayViewModel viewModel;
+    private Handler handler;
 
 
     @Override
     public FragmentWordsBinding bind() {
         return FragmentWordsBinding.inflate(getLayoutInflater());
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageAdapter= new ImageAdapter();
+        viewModel = new ViewModelProvider(this).get(PixaBayViewModel.class);
+        initAdapter();
         listener();
-    }
+     }
+
 
     private void listener() {
-        binding.btnOk.setOnClickListener(new View.OnClickListener() {
+        binding.edWords.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                String data = binding.tvWords.getText().toString();
-                App.retrofitClient.providePixabayApi().getImage("25686965-0239caa31958b6bb6157f5e9b", data).enqueue(new Callback<PixabayResponse>() {
-                    @Override
-                    public void onResponse(Call<PixabayResponse> call, Response<PixabayResponse> response) {
-                        imageAdapter.setData(response.body().getHits());
-                        binding.recyclerView.setAdapter(imageAdapter);
-                    }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
-                    @Override
-                    public void onFailure(Call<PixabayResponse> call, Throwable t) {
-                        Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (handler != null){
+                    handler= null;
+                }
 
+            }
+
+            @Override
+            public void afterTextChanged(  Editable editable) {
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        viewModel.getImages(binding.edWords.getText().toString()).observe(getViewLifecycleOwner(), hits -> {
+                            if (hits != null) {
+                                binding.progressBar.setVisibility(View.GONE);
+                                binding.recyclerView.setAdapter(imageAdapter);
+                                imageAdapter.setData((ArrayList<Hit>) hits);
+                            }
+                        });
+                    }
+                }, 2000);
             }
         });
     }
+
+
+    private void initAdapter() {
+        imageAdapter= new ImageAdapter();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding= null;
+     }
 }
