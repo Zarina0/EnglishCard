@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/wordsFragment">
+    app:startDestination="@id/mainBoardFragment">
 
     <fragment
         android:id="@+id/categoryFragment"
@@ -15,4 +15,9 @@
         android:name="com.example.englishcard.ui.fragments.WordsFragment"
         android:label="fragment_words"
         tools:layout="@layout/fragment_words" />
+    <fragment
+        android:id="@+id/mainBoardFragment"
+        android:name="com.example.englishcard.boarding.fragment.MainBoardFragment"
+        android:label="fragment_main_board"
+        tools:layout="@layout/fragment_main_board" />
 </navigation>

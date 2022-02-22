@@ -16,6 +16,12 @@
 
     <style name="splashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <item name="android:windowBackground">@drawable/splash</item>
-
     </style>
+
+    <style name="constraintLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
 </resources>

@@ -10,15 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.englishcard.adapter.ImageAdapter;
+import com.example.englishcard.adapters.word_adater.ImageAdapter;
 import com.example.englishcard.base.BaseFrafment;
 import com.example.englishcard.databinding.FragmentWordsBinding;
-import com.example.englishcard.network.model.Hit;
+import com.example.englishcard.network.models.Hit;
 import com.example.englishcard.viewmodel.PixaBayViewModel;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
     private ImageAdapter imageAdapter;
     PixaBayViewModel viewModel;
@@ -33,7 +35,7 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(PixaBayViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(PixaBayViewModel.class);
         initAdapter();
         listener();
      }

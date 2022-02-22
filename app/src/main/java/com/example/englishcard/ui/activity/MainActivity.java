@@ -9,6 +9,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.englishcard.R;
 import com.example.englishcard.databinding.ActivityMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 

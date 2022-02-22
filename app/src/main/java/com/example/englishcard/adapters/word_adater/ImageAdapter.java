@@ -1,4 +1,4 @@
-package com.example.englishcard.adapter;
+package com.example.englishcard.adapters.word_adater;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.englishcard.databinding.ItemListHolderBinding;
-import com.example.englishcard.network.model.Hit;
+import com.example.englishcard.network.models.Hit;
 
 import java.util.ArrayList;
 

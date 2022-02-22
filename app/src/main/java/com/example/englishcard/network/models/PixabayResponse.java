@@ -1,5 +1,5 @@
 
-package com.example.englishcard.network.model;
+package com.example.englishcard.network.models;
 
 import com.google.gson.annotations.SerializedName;
 

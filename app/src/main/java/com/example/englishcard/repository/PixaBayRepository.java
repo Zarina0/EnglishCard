@@ -5,30 +5,29 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.englishcard.App;
-import com.example.englishcard.network.model.Hit;
-import com.example.englishcard.network.model.PixabayResponse;
+import com.example.englishcard.network.PixabyApi;
+import com.example.englishcard.network.models.Hit;
+import com.example.englishcard.network.models.PixabayResponse;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PixaBayRepository {
+    PixabyApi api;
 
-    static PixaBayRepository pixaBayRepository;
-
-    public static PixaBayRepository getInstance(){
-        if (pixaBayRepository == null){
-            return new PixaBayRepository();
-        }
-        return pixaBayRepository; }
-
+    @Inject
+    public PixaBayRepository(PixabyApi api) {
+        this.api = api;
+    }
 
     public MutableLiveData<List<Hit>> getImage(String word){
         MutableLiveData<List<Hit>> listImages = new MutableLiveData<>();
-        App.api.getImage(word).enqueue(new Callback<PixabayResponse>() {
+        api.getImage(word).enqueue(new Callback<PixabayResponse>() {
             @Override
             public void onResponse(@NonNull Call<PixabayResponse> call, @NonNull Response<PixabayResponse> response) {
                 if (response.isSuccessful()){
