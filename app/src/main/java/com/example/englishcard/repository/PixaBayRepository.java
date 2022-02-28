@@ -3,11 +3,15 @@ package com.example.englishcard.repository;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.englishcard.db.app_data_base.AppDataBase;
+import com.example.englishcard.models.api_models.Hit;
+import com.example.englishcard.models.api_models.PixabayResponse;
+import com.example.englishcard.models.db_models.CategoryModel;
+import com.example.englishcard.models.db_models.WordsModel;
 import com.example.englishcard.network.PixabyApi;
-import com.example.englishcard.network.models.Hit;
-import com.example.englishcard.network.models.PixabayResponse;
 
 import java.util.List;
 
@@ -19,7 +23,7 @@ import retrofit2.Response;
 
 public class PixaBayRepository {
     PixabyApi api;
-
+    AppDataBase appDataBase;
     @Inject
     public PixaBayRepository(PixabyApi api) {
         this.api = api;
@@ -41,5 +45,17 @@ public class PixaBayRepository {
             }
         });
         return listImages;
+    }
+
+    public LiveData<List<CategoryModel>> getCategories() {
+        MutableLiveData<List<CategoryModel>> categoryList = new MutableLiveData<>();
+        categoryList.setValue((List<CategoryModel>) appDataBase.getDatabase().categoryDao().getAll());
+        return categoryList;
+    }
+
+    public LiveData<List<WordsModel>> getWords(String userCategory) {
+        MutableLiveData<List<WordsModel>> wordsList = new MutableLiveData<>();
+        wordsList.setValue((List<WordsModel>) appDataBase.getDatabase().wordsDao().getAll(userCategory));
+        return wordsList;
     }
 }

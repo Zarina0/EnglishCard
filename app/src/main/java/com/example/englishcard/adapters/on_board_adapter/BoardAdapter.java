@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.englishcard.boarding.model.BoardModel;
+import com.example.englishcard.models.board_model.BoardModel;
 import com.example.englishcard.databinding.FragmentBoardBinding;
 import com.example.englishcard.listener.OnItemClickListener;
 

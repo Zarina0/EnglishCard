@@ -3,12 +3,18 @@ package com.example.englishcard.di;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.englishcard.boarding.data.Preferences;
+import com.example.englishcard.db.app_data_base.AppDataBase;
+import com.example.englishcard.db.dao.CategoryDao;
+import com.example.englishcard.db.dao.WordsDao;
+import com.example.englishcard.helpers.preference_helper.Preferences;
+import com.example.englishcard.helpers.room_helper.Room;
 import com.example.englishcard.network.PixabyApi;
 import com.example.englishcard.repository.PixaBayRepository;
 import com.example.englishcard.viewmodel.PixaBayViewModel;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,8 +39,8 @@ public class AppModul {
 
 
     @Provides
-        public static PixaBayViewModel provideViewModel(PixaBayRepository repository, Preferences preferences) {
-        return new PixaBayViewModel(repository, preferences);
+        public static PixaBayViewModel provideViewModel(PixaBayRepository repository, Preferences preferences, Room roomHelper) {
+        return new PixaBayViewModel(repository, preferences,roomHelper);
     }
     @Provides
     public static PixabyApi providePixabayApi(OkHttpClient client) {
@@ -62,12 +68,32 @@ public class AppModul {
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 
-    @ApplicationContext
-    Context context;
 
     @Provides
     public static SharedPreferences provideSharedPreferencesr(@ApplicationContext Context context){
         return context.getSharedPreferences("key",Context.MODE_PRIVATE);
     }
 
+    public static AppDataBase appDataBase;
+    public static Room roomHelper;
+
+
+    @Singleton
+    @Provides
+    public static AppDataBase provideDatabase(@ApplicationContext Context context) {
+        return roomHelper.createDatabase(context);
+
+    }
+
+    @Singleton
+    @Provides
+    public static WordsDao provideWordDao() {
+        return appDataBase.wordsDao();
+    }
+
+    @Singleton
+    @Provides
+    public static CategoryDao provideCategoryDao() {
+        return appDataBase.categoryDao();
+    }
 }

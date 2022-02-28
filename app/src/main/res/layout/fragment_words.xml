@@ -4,47 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
-    tools:context=".ui.fragments.WordsFragment">
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.fragments.words.WordsFragment">
 
-
-    <LinearLayout
-        android:id="@+id/linear_container"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="#1F94F8"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:title="fragment" />
 
-    <EditText
-        android:id="@+id/ed_words"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите слово"
-        android:padding="12dp" />
-
-
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTintMode="src_atop"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/red"
-            android:visibility="gone" />
-
-
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
+        android:id="@+id/recyclerview"
+        android:layout_width="400dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_container"
-        tools:listitem="@layout/item_list_holder" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/image_list_holder" />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_word"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_add"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

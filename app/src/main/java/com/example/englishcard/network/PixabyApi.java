@@ -1,6 +1,6 @@
 package com.example.englishcard.network;
 
-import com.example.englishcard.network.models.PixabayResponse;
+import com.example.englishcard.models.api_models.PixabayResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

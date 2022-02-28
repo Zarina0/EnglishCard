@@ -1,7 +1,7 @@
 package com.example.englishcard.boarding.data.client;
 
 import com.example.englishcard.R;
-import com.example.englishcard.boarding.model.BoardModel;
+import com.example.englishcard.models.board_model.BoardModel;
 
 import java.util.ArrayList;
 

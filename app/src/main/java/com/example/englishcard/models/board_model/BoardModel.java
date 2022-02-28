@@ -1,4 +1,4 @@
-package com.example.englishcard.boarding.model;
+package com.example.englishcard.models.board_model;
 
 public class BoardModel {
     private String title;

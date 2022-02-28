@@ -13,7 +13,7 @@ import com.example.englishcard.R;
 import com.example.englishcard.adapters.on_board_adapter.BoardAdapter;
 import com.example.englishcard.base.BaseFrafment;
 import com.example.englishcard.boarding.data.client.DataClient;
-import com.example.englishcard.boarding.model.BoardModel;
+import com.example.englishcard.models.board_model.BoardModel;
 import com.example.englishcard.databinding.FragmentMainBoardBinding;
 import com.example.englishcard.listener.OnItemClickListener;
 import com.example.englishcard.viewmodel.PixaBayViewModel;
@@ -52,7 +52,7 @@ public class MainBoardFragment extends BaseFrafment<FragmentMainBoardBinding> im
 
     private void checkIfShown() {
         if (viewModel.getBoolean()) {
-            Navigation.findNavController(requireView()).navigate(R.id.wordsFragment);
+            Navigation.findNavController(requireView()).navigate(R.id.categoryFragment);
         } else {
             viewModel.setBoolean(false);
         }
