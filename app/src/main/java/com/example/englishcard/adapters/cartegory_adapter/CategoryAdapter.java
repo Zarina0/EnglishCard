@@ -14,12 +14,13 @@ import com.example.englishcard.models.db_models.CategoryModel;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryHolder> {
-    List<CategoryModel> list;
     OnCategoryClickListener onCategoryClickListener;
+    List<CategoryModel> list;
 
-    public CategoryAdapter(List<CategoryModel> list, OnCategoryClickListener onCategoryClickListener) {
-        this.list = list;
+
+    public CategoryAdapter( OnCategoryClickListener onCategoryClickListener,List<CategoryModel> list) {
         this.onCategoryClickListener = onCategoryClickListener;
+        this.list = list;
     }
 
 
@@ -44,12 +45,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         public CategoryHolder(@NonNull CategoryListHolderBinding binding) {
             super(binding.getRoot());
             this.binding=binding;
-            binding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
 
         public void OnBind(CategoryModel categoryModel) {
@@ -58,7 +53,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 @Override
                 public void onClick(View view) {
                     onCategoryClickListener.onCategoryClick(categoryModel.getName());
-
                 }
             });
         }

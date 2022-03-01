@@ -62,44 +62,36 @@ public class WordsBottomSheetFragment extends BottomSheetDialogFragment implemen
     }
 
     private void initListeners() {
-        binding.btnCreate.setOnClickListener(new View.OnClickListener() {
+        binding.btnCreate.setOnClickListener( view -> binding.edWords.addTextChangedListener( new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                binding.edWords.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        if (handler != null) {
-                            handler = null;
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                word = binding.edWords.getText().toString();
-                                viewModel.getImages(word).observe(getViewLifecycleOwner(), images -> {
-                                    if (images != null) {
-                                        binding.tvNewCategory.setText(word);
-                                        imageAdapter.setData((ArrayList<Hit>) images);
-                                        binding.recyclerview.setAdapter(imageAdapter);
-                                        WordsModel wordModel = new WordsModel(word, category, image);
-                                        viewModel.insertWord(wordModel);
-                                    }
-                                });
-                            }
-                        }, 2000);
-                    }
-                });
             }
-        });
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (handler != null) {
+                    handler = null;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                new Handler().postDelayed( () -> {
+                    word = binding.edWords.getText().toString();
+                    viewModel.getImages(word).observe(getViewLifecycleOwner(), images -> {
+                        if (images != null) {
+                            binding.tvNewCategory.setText(word);
+                            imageAdapter.setData((ArrayList<Hit>) images);
+                            binding.recyclerview.setAdapter(imageAdapter);
+                            WordsModel wordModel = new WordsModel(word, category, image);
+                            viewModel.insertWord(wordModel);
+                        }
+                    });
+                }, 2000);
+            }
+        }) );
     }
 
     @Override
@@ -113,6 +105,4 @@ public class WordsBottomSheetFragment extends BottomSheetDialogFragment implemen
         super.onDestroyView();
         binding = null;
     }
-
-
 }

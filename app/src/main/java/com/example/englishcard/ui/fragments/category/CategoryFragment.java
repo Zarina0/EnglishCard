@@ -35,29 +35,23 @@ public class CategoryFragment extends BaseFrafment<FragmentCategoryBinding> impl
 
 
     private void initListeners() {
-        binding.btnAddCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CategoryBottomSheetFragment createCategoryBottomSheetFragment = new CategoryBottomSheetFragment();
-                createCategoryBottomSheetFragment.show(requireActivity().getSupportFragmentManager(), "category opened");
-
-            }
-        });
+        binding.btnAddCategory.setOnClickListener( view -> {
+            CategoryBottomSheetFragment createCategoryBottomSheetFragment = new CategoryBottomSheetFragment();
+            createCategoryBottomSheetFragment.show(requireActivity().getSupportFragmentManager(), "category opened");
+        } );
     }
 
     private void initObserver() {
         viewModel.getCategories().observe(getViewLifecycleOwner(), categoryModels -> {
             if (categoryModels != null) {
-                categoryAdapter = new CategoryAdapter(categoryModels, this);
+                categoryAdapter = new CategoryAdapter(this,categoryModels);
                 binding.recyclerview.setAdapter(categoryAdapter);
             }
-
-
         });
     }
     @Override
     public void onCategoryClick(String category) {
-        Navigation.findNavController(requireView()).navigate(CategoryFragmentDirections.actionCategoryFragmentToWordsFragment());
+       Navigation.findNavController(requireView()).navigate(CategoryFragmentDirections.actionCategoryFragmentToWordsFragment(category));
     }
 
 

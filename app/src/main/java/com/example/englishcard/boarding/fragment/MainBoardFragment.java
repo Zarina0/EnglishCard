@@ -13,9 +13,9 @@ import com.example.englishcard.R;
 import com.example.englishcard.adapters.on_board_adapter.BoardAdapter;
 import com.example.englishcard.base.BaseFrafment;
 import com.example.englishcard.boarding.data.client.DataClient;
-import com.example.englishcard.models.board_model.BoardModel;
 import com.example.englishcard.databinding.FragmentMainBoardBinding;
 import com.example.englishcard.listener.OnItemClickListener;
+import com.example.englishcard.models.board_model.BoardModel;
 import com.example.englishcard.viewmodel.PixaBayViewModel;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ public class MainBoardFragment extends BaseFrafment<FragmentMainBoardBinding> im
         initAdapter();
         checkIfShown();
         initListeners();
+        enableButton();
     }
 
     private void initAdapter() {
@@ -60,17 +61,13 @@ public class MainBoardFragment extends BaseFrafment<FragmentMainBoardBinding> im
 
 
     private void initListeners() {
-        binding.btnGo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setBoolean(true);
-                Navigation.findNavController(requireView()).navigate(R.id.wordsFragment);
-            }
-        });
+        binding.btnGo.setOnClickListener( view -> {
+            viewModel.setBoolean(true);
+            Navigation.findNavController(requireView()).navigate(R.id.wordsFragment);
+        } );
     }
 
-    @Override
-    public void itemListener(BoardModel boardModel) {
+    private void enableButton() {
         binding.viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -80,6 +77,11 @@ public class MainBoardFragment extends BaseFrafment<FragmentMainBoardBinding> im
                 }
             }
         });
+    }
+
+
+    @Override
+    public void itemListener(BoardModel boardModel) {
     }
 
 

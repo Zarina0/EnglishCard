@@ -19,7 +19,7 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
 
     PixaBayViewModel viewModel;
     WordsAdapter wordsAdapter;
-    WordsFragmentArgs args;
+    WordsFragmentArgs wordsFragmentArgs;
 
     @Override
     public FragmentWordsBinding bind() {
@@ -36,7 +36,7 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
     }
 
     private void initObserver() {
-        String category = args.getFromCategoryToWords();
+        String category = wordsFragmentArgs.getFromCategoryToWords();
         viewModel.getWords(category).observe(getViewLifecycleOwner(), wordModels -> {
             if (wordModels != null) {
                 wordsAdapter = new WordsAdapter(wordModels);
@@ -48,7 +48,7 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
     private void getArgs() {
         if (getArguments() != null) {
             WordsFragmentArgs.fromBundle(getArguments());
-            String category = args.getFromCategoryToWords();
+            String category = wordsFragmentArgs.getFromCategoryToWords();
             binding.toolbar.setTitle(category);
         }
     }
@@ -60,7 +60,6 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
             public void onClick(View view) {
                 WordsBottomSheetFragment wordsBottomSheetFragment = new WordsBottomSheetFragment();
                 wordsBottomSheetFragment.show(requireActivity().getSupportFragmentManager(), "word opened");
-
             }
         });
     }
@@ -70,6 +69,4 @@ public class WordsFragment extends BaseFrafment<FragmentWordsBinding> {
         super.onDestroyView();
         binding = null;
     }
-
-
 }

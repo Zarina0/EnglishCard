@@ -27,7 +27,6 @@
         tools:layout="@layout/fragment_words">
         <argument
             android:name="fromCategoryToWords"
-            app:argType="string"
-            android:defaultValue="true"/>
+            app:argType="string" />
     </fragment>
 </navigation>
